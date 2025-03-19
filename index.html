@@ -45,21 +45,27 @@
             <button type="submit" aria-label="Enviar dados de disponibilidade">Enviar</button>
         </form>
 
-        <div class="success" id="successMessage" aria-live="assertive">
+        <!-- Mensagem de sucesso -->
+        <div class="success" id="successMessage" aria-live="assertive" style="display: none;">
             Formulário enviado com sucesso!
         </div>
 
-        <div class="alert-box" id="alertBox" aria-live="assertive">
+        <!-- Alerta de aviso -->
+        <div class="alert-box" id="alertBox" aria-live="assertive" style="display: none;">
             <p>Caso não consiga comparecer no dia, por favor, avise seu líder com ANTECEDÊNCIA. Deus abençoe!</p>
         </div>
 
-        <div id="cryingMessage" role="dialog" aria-labelledby="cryingMessageTitle" aria-hidden="true">
+        <!-- Mensagem quando usuário está indisponível -->
+        <div id="cryingMessage" role="dialog" aria-labelledby="cryingMessageTitle" aria-hidden="true" style="display: none;">
             <div class="cryingFace">😢</div>
             <p id="cryingMessageTitle">Que pena que não irá servir conosco este mês. Mas, na próxima escala quero você aqui conosco!</p>
             <button id="closeButton" aria-label="Fechar mensagem de indisponibilidade">Sinto Muito</button>
         </div>
 
-        <div id="loadingMessage" aria-live="assertive">Enviando dados... Por favor, aguarde.</div>
+        <!-- Mensagem de carregamento -->
+        <div id="loadingMessage" aria-live="assertive" style="display: none;">
+            Enviando dados... Por favor, aguarde.
+        </div>
     </div>
 
     <script src="js/script.js"></script>

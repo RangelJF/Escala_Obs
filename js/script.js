@@ -44,4 +44,13 @@ monthSelect.addEventListener('change', () => {
             daysContainer.appendChild(div);
         });
 
-        const unavailableCheckboxElement = document.getElementById
+        const unavailableCheckboxElement = document.getElementById('unavailable');
+        unavailableCheckboxElement.addEventListener('change', (event) => {
+            if (event.target.checked) {
+                document.getElementById('cryingMessage').style.display = "block";
+            } else {
+                document.getElementById('cryingMessage').style.display = "none";
+            }
+        });
+    }
+});

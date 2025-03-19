@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escala OBS</title>
+    <link rel="stylesheet" href="css/style.css"> 
+</head>
+<body>
+    <div class="container">
+        <h1 id="formTitle">Escala Mensal - OBS</h1>
+        <form id="availabilityForm" aria-labelledby="formTitle">
+            <label for="month">Selecione o mês:</label>
+            <select id="month" name="month" required aria-label="Selecione o mês" aria-required="true">
+                <option value="">--Selecione--</option>
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+            </select>
+
+            <label for="days">Selecione os dias disponíveis:</label>
+            <div id="daysContainer" aria-live="polite" role="group" aria-labelledby="days"> 
+            </div>
+
+            <label for="name">Selecione seu nome:</label>
+            <select id="name" name="name" required aria-label="Selecione seu nome" aria-required="true">
+                <option value="">--Selecione--</option>
+                <option value="Ana Lara">Ana Lara</option>
+                <option value="Lyan">Lyan</option>
+                <option value="Rebeca">Rebeca</option>
+                <option value="Saionara">Saionara</option>
+                <option value="Shaiéli">Shaiéli</option>
+                <option value="Dayra">Dayra</option>
+            </select>
+
+            <button type="submit" aria-label="Enviar dados de disponibilidade">Enviar</button>
+        </form>
+
+        <div class="success" id="successMessage" aria-live="assertive">
+            Formulário enviado com sucesso!
+        </div>
+
+        <div class="alert-box" id="alertBox" aria-live="assertive">
+            <p>Caso não consiga comparecer no dia, por favor, avise seu líder com ANTECEDÊNCIA. Deus abençoe!</p>
+        </div>
+
+        <div id="cryingMessage" role="dialog" aria-labelledby="cryingMessageTitle" aria-hidden="true">
+            <div class="cryingFace">😢</div>
+            <p id="cryingMessageTitle">Que pena que não irá servir conosco este mês. Mas, na próxima escala quero você aqui conosco!</p>
+            <button id="closeButton" aria-label="Fechar mensagem de indisponibilidade">Sinto Muito</button>
+        </div>
+
+        <div id="loadingMessage" aria-live="assertive">Enviando dados... Por favor, aguarde.</div>
+    </div>
+
+    <script src="js/script.js"></script> <!-- Referência ao JavaScript externo -->
+</body>
+</html>

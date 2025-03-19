@@ -1,83 +1,70 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const selectedDays = [2, 5, 9, 12, 16, 19, 23, 26, 30];
-    const daysContainer = document.getElementById('daysContainer');
-    const monthSelect = document.getElementById('month');
-    const cryingMessage = document.getElementById('cryingMessage');
-    const closeButton = document.getElementById('closeButton');
+    const form = document.getElementById("availabilityForm");
+    const successMessage = document.getElementById("successMessage");
+    const alertBox = document.getElementById("alertBox");
+    const loadingMessage = document.getElementById("loadingMessage");
+    const cryingMessage = document.getElementById("cryingMessage");
+    const closeButton = document.getElementById("closeButton");
+    const unavailableCheckbox = document.getElementById("unavailable");
+    const daysContainer = document.getElementById("daysContainer");
 
-    function getDayName(day, month) {
-        const daysOfWeek = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-        const date = new Date(2025, month - 1, day);
-        return daysOfWeek[date.getDay()];
+    if (!form) {
+        console.error("Erro: Formulário não encontrado!");
+        return;
     }
 
-    function renderDays(month) {
-        daysContainer.innerHTML = '';
-        
-        const unavailableCheckbox = document.createElement('input');
-        unavailableCheckbox.type = 'checkbox';
-        unavailableCheckbox.id = 'unavailable';
-        unavailableCheckbox.name = "selectedDays[]";
-        unavailableCheckbox.value = 'Este mês estarei INDISPONÍVEL';
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
 
-        const unavailableLabel = document.createElement('label');
-        unavailableLabel.htmlFor = 'unavailable';
-        unavailableLabel.textContent = 'Este mês estarei INDISPONÍVEL';
-        unavailableLabel.style.color = "#fff";
+        // Exibe a mensagem de carregamento
+        loadingMessage.style.display = "block";
 
-        const unavailableDiv = document.createElement('div');
-        unavailableDiv.appendChild(unavailableCheckbox);
-        unavailableDiv.appendChild(unavailableLabel);
-        daysContainer.appendChild(unavailableDiv);
+        setTimeout(function () {
+            loadingMessage.style.display = "none"; // Oculta o "Enviando..."
 
-        selectedDays.forEach(day => {
-            const dayName = getDayName(day, month);
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.classList.add('day-checkbox');
-            checkbox.id = 'day-' + day;
-            checkbox.name = "selectedDays[]";
-            checkbox.value = day;
+            // Exibe mensagem de sucesso
+            successMessage.style.display = "block";
 
-            const label = document.createElement('label');
-            label.htmlFor = 'day-' + day;
-            label.textContent = `Dia ${day} (${dayName})`;
-            label.style.color = "#fff";
+            // Exibe alerta de aviso
+            alertBox.style.display = "block";
 
-            const div = document.createElement('div');
-            div.appendChild(checkbox);
-            div.appendChild(label);
-            daysContainer.appendChild(div);
-        });
+            // Reseta o formulário
+            form.reset();
 
-        unavailableCheckbox.addEventListener('change', function () {
-            const dayCheckboxes = document.querySelectorAll('.day-checkbox');
+            // Oculta a mensagem de sucesso após 3 segundos
+            setTimeout(function () {
+                successMessage.style.display = "none";
+                alertBox.style.display = "none";
+            }, 3000);
+        }, 2000); // Simula um tempo de processamento de 2 segundos
+    });
+
+    // Lógica para ativar/desativar as opções corretamente
+    if (unavailableCheckbox) {
+        unavailableCheckbox.addEventListener("change", function () {
             if (this.checked) {
-                cryingMessage.style.display = "block";
-                dayCheckboxes.forEach(cb => cb.disabled = true);
+                cryingMessage.style.display = "block"; // Mostra mensagem triste
+                daysContainer.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+                    checkbox.checked = false;
+                    checkbox.disabled = true;
+                });
             } else {
-                cryingMessage.style.display = "none";
-                dayCheckboxes.forEach(cb => cb.disabled = false);
+                cryingMessage.style.display = "none"; // Oculta mensagem triste
+                daysContainer.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+                    checkbox.disabled = false;
+                });
             }
         });
+    }
 
-        document.querySelectorAll('.day-checkbox').forEach(cb => {
-            cb.addEventListener('change', function () {
-                unavailableCheckbox.disabled = document.querySelectorAll('.day-checkbox:checked').length > 0;
+    // Fecha a mensagem de indisponibilidade ao clicar no botão
+    if (closeButton) {
+        closeButton.addEventListener("click", function () {
+            cryingMessage.style.display = "none";
+            unavailableCheckbox.checked = false;
+            daysContainer.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+                checkbox.disabled = false;
             });
         });
     }
-
-    monthSelect.addEventListener('change', function () {
-        const month = parseInt(this.value);
-        if (!isNaN(month)) {
-            renderDays(month);
-        }
-    });
-
-    closeButton.addEventListener('click', function () {
-        cryingMessage.style.display = "none";
-        document.getElementById('unavailable').checked = false;
-        document.querySelectorAll('.day-checkbox').forEach(cb => cb.disabled = false);
-    });
 });

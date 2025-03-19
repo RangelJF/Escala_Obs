@@ -1,4 +1,4 @@
-# Escala_Obs
+# Escala OBS
 
 Este projeto é uma aplicação web simples desenvolvida em HTML e JavaScript que permite que os usuários registrem suas disponibilidades para um determinado mês. A aplicação envia os dados para uma planilha do Google Sheets usando Google Apps Script, permitindo a organização de escalas.
 
